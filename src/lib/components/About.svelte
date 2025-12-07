@@ -20,13 +20,13 @@
         </h3>
         <div class="text-gray-700">
             <div class="mb-3">
-                <i class="fas fa-graduation-cap mr-2"></i><span class="font-medium text-xl">Chungbuk
+                <i class="bi bi-mortarboard-fill mr-2 text-xl"></i><span class="font-medium text-xl">Chungbuk
                     National University</span>
                 <div class="text-gray-500 text-lg">M.S - CSLAB advised by Heeseung Jo (2025 -
                     Present)</div>
             </div>
             <div>
-                <i class="fas fa-graduation-cap mr-2"></i><span class="font-medium text-xl">Chungbuk
+                <i class="bi bi-mortarboard-fill mr-2 text-xl"></i><span class="font-medium text-xl">Chungbuk
                     National University</span>
                 <div class="text-gray-500 text-lg">B.S — Computer Science (2019 - 2025)</div>
             </div>

@@ -15,7 +15,7 @@
 
 <section id="projects" class="py-20 bg-white">
     <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Featured Projects</h2>
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Projects</h2>
         <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {#each projects as proj, index}
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">

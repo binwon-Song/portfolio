@@ -12,7 +12,7 @@
                 class="w-40 h-40 md:w-64 md:h-64 rounded-full object-cover relative z-10 shadow-xl"
                 loading="lazy" />
         </div>
-        <div class="flex-1 pl-10">
+        <div class="flex pl-10 items-start">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 text-start">Hi, I'm
                 <div class="text-green-700">Binwon Song</div>
             </h1>
