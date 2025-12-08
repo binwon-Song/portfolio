@@ -10,6 +10,7 @@
     export let data: PageData;
 </script>
 
+<Navbar navFiles={data.navFiles}></Navbar>
 <div class="min-h-screen bg-gradient-to-br font-sans">
     <main>
         <!-- Hero + About/Education Side Panel -->

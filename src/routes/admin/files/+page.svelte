@@ -2,18 +2,18 @@
     import { enhance } from "$app/forms";
     import { invalidateAll } from "$app/navigation";
     import FileModal from "$lib/components/admin/FileModal.svelte";
+    import type { NavFile } from "$lib/types";
 
     export let data;
 
-    let navFiles: any[] = data.navFiles;
+    let navFiles: NavFile[] = data.navFiles;
     let showAddFileModal = false;
 
     $: navFiles = data.navFiles;
 </script>
 
 <div>
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold">Navbar Files</h2>
+    <div class="flex justify-end items-center mb-6">
         <button
             on:click={() => (showAddFileModal = true)}
             class="bg-indigo-600 text-white px-4 py-2 rounded">추가 하기</button
@@ -23,7 +23,6 @@
     <div class="bg-white p-6 rounded-lg shadow mb-6">
         <div class="space-y-4">
             <div>
-                <h3 class="text-lg font-medium mb-2">Existing Navbar Files</h3>
                 <div class="space-y-2">
                     {#each navFiles as nf}
                         <div
@@ -32,7 +31,11 @@
                             <div>
                                 <div class="font-medium">{nf.name}</div>
                                 <div class="text-xs text-gray-500">
-                                    {nf.url}
+                                    {#if nf.size < 1024 * 1024}
+                                        {(nf.size / 1024).toFixed(2)} KB
+                                    {:else}
+                                        {(nf.size / (1024 * 1024)).toFixed(2)} MB
+                                    {/if}
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
@@ -69,7 +72,9 @@
                         </div>
                     {/each}
                     {#if navFiles.length === 0}
-                        <div class="text-sm text-gray-500">
+                        <div
+                            class="text-center py-12 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50"
+                        >
                             No navbar files yet.
                         </div>
                     {/if}

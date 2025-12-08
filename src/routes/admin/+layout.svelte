@@ -28,49 +28,100 @@
     }
 
     function isActive(path: string) {
-        return $page.url.pathname.startsWith(path) ? "bg-indigo-700" : "";
+        return $page.url.pathname.startsWith(path)
+            ? "text-indigo-600 font-bold"
+            : "text-gray-600 hover:text-indigo-600 transition-colors";
     }
 </script>
 
 {#if loading}
-    <div class="flex items-center justify-center h-screen">Loading...</div>
+    <div class="flex items-center justify-center h-screen bg-gray-50">
+        <div
+            class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"
+        ></div>
+    </div>
 {:else if user}
-    <div class="flex h-screen bg-gray-100">
-        <!-- Sidebar -->
-        <div class="w-64 bg-indigo-800 text-white flex flex-col">
-            <div class="p-6 text-2xl font-bold">Admin</div>
-            <nav class="flex-1 px-4 space-y-2">
-                <a
-                    href="/admin/files"
-                    class="block px-4 py-2 rounded hover:bg-indigo-700 {isActive(
-                        '/admin/files',
-                    )}">Files</a
+    <div class="min-h-screen bg-gray-50 font-sans flex flex-col">
+        <!-- Top Navigation Bar -->
+        <header
+            class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-gray-200"
+        >
+            <nav class="container mx-auto px-6 py-4">
+                <div
+                    class="flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
-                <a
-                    href="/admin/publications"
-                    class="block px-4 py-2 rounded hover:bg-indigo-700 {isActive(
-                        '/admin/publications',
-                    )}">Publications</a
-                >
-                <a
-                    href="/admin/projects"
-                    class="block px-4 py-2 rounded hover:bg-indigo-700 {isActive(
-                        '/admin/projects',
-                    )}">Projects</a
-                >
+                    <!-- Brand & Logo -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center"
+                            >
+                                <i class="bi bi-grid-fill text-white text-sm"
+                                ></i>
+                            </div>
+                            <span
+                                class="text-xl font-bold text-gray-800 tracking-tight"
+                                >Admin Dashboard</span
+                            >
+                        </div>
+
+                        <!-- Logout Button (Mobile only) -->
+                        <button
+                            on:click={logout}
+                            class="md:hidden p-2 text-gray-500 hover:text-red-600 transition-colors"
+                            aria-label="Logout"
+                        >
+                            <i class="bi bi-box-arrow-right text-xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Navigation Links (Horizontal) -->
+                    <div
+                        class="flex items-center justify-center gap-8 overflow-x-auto pb-2 md:pb-0"
+                    >
+                        <a
+                            href="/admin/files"
+                            class="text-lg font-medium whitespace-nowrap {isActive(
+                                '/admin/files',
+                            )}"
+                        >
+                            Files
+                        </a>
+                        <a
+                            href="/admin/publications"
+                            class="text-lg font-medium whitespace-nowrap {isActive(
+                                '/admin/publications',
+                            )}"
+                        >
+                            Publications
+                        </a>
+                        <a
+                            href="/admin/projects"
+                            class="text-lg font-medium whitespace-nowrap {isActive(
+                                '/admin/projects',
+                            )}"
+                        >
+                            Projects
+                        </a>
+                    </div>
+
+                    <!-- Logout Button (Desktop) -->
+                    <div class="hidden md:block">
+                        <button
+                            on:click={logout}
+                            class="flex items-center gap-2 px-4 py-2 rounded-lg text-lg font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                            <i class="bi bi-box-arrow-right text-lg"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
             </nav>
-            <div class="p-4 border-t border-indigo-700">
-                <button
-                    on:click={logout}
-                    class="w-full text-left px-4 py-2 rounded hover:bg-indigo-700"
-                    >Logout</button
-                >
-            </div>
-        </div>
+        </header>
 
         <!-- Main Content -->
-        <div class="flex-1 overflow-auto p-8">
+        <main class="flex-1 container mx-auto px-6 py-8 max-w-7xl">
             {@render children()}
-        </div>
+        </main>
     </div>
 {/if}

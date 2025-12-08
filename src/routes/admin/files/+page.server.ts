@@ -1,14 +1,10 @@
-import { adminDb, adminStorage } from '$lib/server/firebase';
+import { getNavFiles, deleteNavFile } from '$lib/server/database';
 import type { PageServerLoad, Actions } from './$types.js';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
-    const navFilesSnapshot = await adminDb.collection('navFiles').orderBy('createdAt', 'desc').get();
-    const navFiles = navFilesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    return {
-        navFiles
-    };
+    const navFiles = await getNavFiles();
+    return { navFiles };
 };
 
 export const actions: Actions = {
@@ -18,12 +14,7 @@ export const actions: Actions = {
         const storagePath = data.get('storagePath') as string;
 
         try {
-            if (storagePath) {
-                await adminStorage.bucket().file(storagePath).delete().catch(err => {
-                    console.warn('Failed to delete storage object', err);
-                });
-            }
-            await adminDb.collection('navFiles').doc(id).delete();
+            await deleteNavFile(id, storagePath);
             return { success: true };
         } catch (error) {
             console.error('Error deleting nav file:', error);

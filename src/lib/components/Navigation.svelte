@@ -1,10 +1,11 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from "svelte";
     import { fly, fade } from "svelte/transition";
+    import type { NavFile } from "$lib/types";
 
     const dispatch = createEventDispatcher();
 
-    export let navFiles: any[] = [];
+    export let navFiles: NavFile[] = [];
 
     let isMenuOpen = false;
     let isFilesOpen = false;
@@ -113,7 +114,7 @@
                     >Projects</a
                 >
                 <a
-                    href="#publication"
+                    href="#publications"
                     class="hidden md:inline text-gray-600 hover:text-primary transition-colors"
                     >Publications</a
                 >
@@ -177,7 +178,12 @@
                                                 <div
                                                     class="text-sm font-medium"
                                                 >
-                                                    {f.name}
+                                                    {#if f.name.length > 10}
+                                                        {f.name.slice(0, 10) +
+                                                            "..."}
+                                                    {:else}
+                                                        {f.name}
+                                                    {/if}
                                                 </div>
                                                 {#if f.size}
                                                     <div
@@ -192,34 +198,6 @@
                                         </a>
                                     {/each}
                                 {/if}
-
-                                <!-- fallback/static links -->
-                                <a
-                                    href="/resume.pdf"
-                                    class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-50 transition"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 text-green-600"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        ><path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M12 3v12m0 0l3-3m-3 3l-3-3M21 21H3"
-                                        /></svg
-                                    >
-                                    <div>
-                                        <div class="text-sm font-medium">
-                                            Resume
-                                        </div>
-                                        <div class="text-xs text-gray-400">
-                                            PDF · 120KB
-                                        </div>
-                                    </div>
-                                </a>
                             </div>
                         </div>
                     {/if}
@@ -319,7 +297,7 @@
                                                     >About</a
                                                 >
                                                 <a
-                                                    href="#publication"
+                                                    href="#publications"
                                                     class="text-gray-700"
                                                     on:click={toggleMenu}
                                                     >Publications</a

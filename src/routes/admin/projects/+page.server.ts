@@ -1,14 +1,10 @@
-import { adminDb } from '$lib/server/firebase';
+import { getProjects, createProject, updateProject, deleteProject } from '$lib/server/database';
 import type { PageServerLoad, Actions } from './$types.js';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
-    const projectsSnapshot = await adminDb.collection('projects').get();
-    const projects = projectsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    return {
-        projects
-    };
+    const projects = await getProjects();
+    return { projects };
 };
 
 export const actions: Actions = {
@@ -21,14 +17,7 @@ export const actions: Actions = {
         const link = data.get('link') as string;
 
         try {
-            await adminDb.collection('projects').add({
-                title,
-                image,
-                summary,
-                description,
-                link,
-                createdAt: new Date()
-            });
+            await createProject({ title, image, summary, description, link });
             return { success: true };
         } catch (error) {
             console.error('Error creating project:', error);
@@ -46,13 +35,7 @@ export const actions: Actions = {
         const link = data.get('link') as string;
 
         try {
-            await adminDb.collection('projects').doc(id).update({
-                title,
-                image,
-                summary,
-                description,
-                link
-            });
+            await updateProject(id, { title, image, summary, description, link });
             return { success: true };
         } catch (error) {
             console.error('Error updating project:', error);
@@ -65,7 +48,7 @@ export const actions: Actions = {
         const id = data.get('id') as string;
 
         try {
-            await adminDb.collection('projects').doc(id).delete();
+            await deleteProject(id);
             return { success: true };
         } catch (error) {
             console.error('Error deleting project:', error);

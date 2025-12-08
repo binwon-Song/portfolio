@@ -1,14 +1,10 @@
-import { adminDb } from '$lib/server/firebase';
+import { getPublications, createPublication, updatePublication, deletePublication } from '$lib/server/database';
 import type { PageServerLoad, Actions } from './$types.js';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
-    const publicationsSnapshot = await adminDb.collection('publications').get();
-    const publications = publicationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-    return {
-        publications
-    };
+    const publications = await getPublications();
+    return { publications };
 };
 
 export const actions: Actions = {
@@ -19,12 +15,7 @@ export const actions: Actions = {
         const description = data.get('description') as string;
 
         try {
-            await adminDb.collection('publications').add({
-                title,
-                conference,
-                description,
-                createdAt: new Date()
-            });
+            await createPublication({ title, conference, description });
             return { success: true };
         } catch (error) {
             console.error('Error creating publication:', error);
@@ -40,11 +31,7 @@ export const actions: Actions = {
         const description = data.get('description') as string;
 
         try {
-            await adminDb.collection('publications').doc(id).update({
-                title,
-                conference,
-                description
-            });
+            await updatePublication(id, { title, conference, description });
             return { success: true };
         } catch (error) {
             console.error('Error updating publication:', error);
@@ -57,7 +44,7 @@ export const actions: Actions = {
         const id = data.get('id') as string;
 
         try {
-            await adminDb.collection('publications').doc(id).delete();
+            await deletePublication(id);
             return { success: true };
         } catch (error) {
             console.error('Error deleting publication:', error);

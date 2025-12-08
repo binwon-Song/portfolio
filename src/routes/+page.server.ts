@@ -1,15 +1,19 @@
-import { adminDb } from '$lib/server/firebase';
-import type { PageServerLoad } from './$types.js';
+import { getProjects, getPublications, getNavFiles } from '$lib/server/database';
+import type { PageServerLoad } from './$types';
+
 
 export const load: PageServerLoad = async () => {
-    const publicationsSnapshot = await adminDb.collection('publications').get();
-    const publications = publicationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const [publications, projects, navFiles] = await Promise.all([
+        getPublications(),
+        getProjects(),
+        getNavFiles()
+    ]);
 
-    const projectsSnapshot = await adminDb.collection('projects').get();
-    const projects = projectsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    console.log(publications, projects, navFiles);
 
     return {
         publications,
-        projects
+        projects,
+        navFiles
     };
 };

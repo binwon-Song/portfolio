@@ -1,6 +1,7 @@
 <script>
 	import "bootstrap-icons/font/bootstrap-icons.css";
-	let { children } = $props();
+	import "./layout.css";
+	let { children, data } = $props();
 </script>
 
 {@render children()}
