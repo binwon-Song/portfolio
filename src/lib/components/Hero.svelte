@@ -20,14 +20,14 @@
                 loading="lazy"
             />
         </div>
-        <div class="flex pl-10 items-start">
+        <div class="pl-10 items-start pt-10">
             <h1
                 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 text-start"
             >
                 Hi, I'm
                 <div class="text-green-700">Binwon Song</div>
             </h1>
-            <div class="flex space-x-5 gap-10 pt-10 pb-10">
+            <div class="flex space-x-5 gap-10 pt-5 pb-10">
                 <a
                     href="https://github.com/binwon-Song"
                     target="_blank"
@@ -36,7 +36,7 @@
                     class="inline-block"
                 >
                     <i
-                        class="bi bi-github text-3xl md:text-5xl text-gray-700 hover:text-green-700 transition-colors"
+                        class="bi bi-github text-3xl md:text-3xl text-gray-700 hover:text-green-700 transition-colors"
                         aria-hidden="true"
                     ></i>
                 </a>

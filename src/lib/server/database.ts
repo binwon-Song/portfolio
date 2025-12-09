@@ -38,7 +38,7 @@ export const getNavFiles = async (): Promise<NavFile[]> => {
             name: file.name.split('/').pop() || file.name, // 파일명만 추출하여 표시 이름으로 사용
             url: file.publicUrl(), // 공개 URL (업로드 시 public 설정 필요)
             storagePath: file.name,
-            size: parseInt(file.metadata.size || '0'),
+            size: parseInt(String(file.metadata.size || '0')),
             createdAt: file.metadata.timeCreated ? new Date(file.metadata.timeCreated) : undefined
         }));
     } catch (e) {

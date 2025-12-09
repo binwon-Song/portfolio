@@ -3,10 +3,10 @@
     import { invalidateAll } from "$app/navigation";
     import ProjectModal from "$lib/components/admin/ProjectModal.svelte";
     import type { Project } from "$lib/types";
+    import type { PageData } from "./$types";
+    export let data: PageData;
 
-    export let data;
-
-    let projects: Project[] = data.projects;
+    let projects: Project[] = data.projects as Project[];
     let showAddProjModal = false;
     let createProjForm: HTMLFormElement;
     let newProj = {
@@ -27,7 +27,7 @@
         link: "",
     };
 
-    $: projects = data.projects;
+    $: projects = data.projects as Project[];
 
     function handleAddProject(e: any) {
         newProj = e;

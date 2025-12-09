@@ -124,7 +124,8 @@
           on:dragleave={onDragLeave}
           on:drop={onDrop}
           on:click={() => fileInput.click()}
-          on:keypress={(e) => e.key === "Enter" && fileInput.click()}
+          on:keypress={(e: KeyboardEvent) =>
+            e.key === "Enter" && fileInput.click()}
         >
           <input
             bind:this={fileInput}
