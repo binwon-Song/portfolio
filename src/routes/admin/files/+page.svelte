@@ -9,7 +9,7 @@
     let navFiles: NavFile[] = data.navFiles;
     let showAddFileModal = false;
 
-    $: navFiles = data.navFiles;
+    $: navFiles = data.navFiles as NavFile[];
 </script>
 
 <div>
@@ -31,10 +31,14 @@
                             <div>
                                 <div class="font-medium">{nf.name}</div>
                                 <div class="text-xs text-gray-500">
-                                    {#if nf.size < 1024 * 1024}
-                                        {(nf.size / 1024).toFixed(2)} KB
-                                    {:else}
-                                        {(nf.size / (1024 * 1024)).toFixed(2)} MB
+                                    {#if nf.size !== undefined}
+                                        {#if nf.size < 1024 * 1024}
+                                            {(nf.size / 1024).toFixed(2)} KB
+                                        {:else}
+                                            {(nf.size / (1024 * 1024)).toFixed(
+                                                2,
+                                            )} MB
+                                        {/if}
                                     {/if}
                                 </div>
                             </div>
@@ -63,7 +67,7 @@
                                     <button
                                         type="submit"
                                         class="text-red-600"
-                                        on:click={(e) =>
+                                        on:click={(e: Event) =>
                                             !confirm("Delete nav file?") &&
                                             e.preventDefault()}>Delete</button
                                     >

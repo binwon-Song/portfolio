@@ -20,7 +20,7 @@
         description: "",
     };
 
-    $: publications = data.publications;
+    $: publications = data.publications as Publication[];
 
     function openAddModal() {
         selectedPub = null;
@@ -172,7 +172,7 @@
                         <button
                             type="submit"
                             class="p-2.5 bg-white text-gray-500 hover:text-red-600 hover:bg-red-50 border border-gray-200 rounded-lg shadow-sm transition-all"
-                            on:click={(e) =>
+                            on:click={(e: Event) =>
                                 !confirm("Are you sure?") && e.preventDefault()}
                             title="Delete"
                         >

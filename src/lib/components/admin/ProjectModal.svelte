@@ -1,28 +1,23 @@
 <script lang="ts">
   import type { Project } from "$lib/types";
 
-  // Callback props로 변경 (EventDispatcher 제거)
+  // Callback props
   export let onClose: () => void;
-  export let onAdd: (project: Omit<Project, "id" | "createdAt">) => void;
+  // 생성과 수정을 모두 처리하므로 onSave로 이름 변경
+  export let onSave: (project: Partial<Project>) => void;
+  // 수정 모드일 경우 전달받을 기존 데이터 (없으면 생성 모드)
+  export let project: Project | undefined = undefined;
 
-  let newProj = {
-    title: "",
-    image: "",
-    summary: "",
-    description: "",
-    link: "",
+  let formData = {
+    title: project?.title || "",
+    image: project?.image || "",
+    summary: project?.summary || "",
+    description: project?.description || "",
+    link: project?.link || "",
   };
 
   function submit() {
-    onAdd({ ...newProj });
-    // 입력 초기화는 부모가 폼 제출 후 하거나 여기서 할 수 있음
-    newProj = {
-      title: "",
-      image: "",
-      summary: "",
-      description: "",
-      link: "",
-    };
+    onSave({ ...formData });
   }
 </script>
 
@@ -30,7 +25,9 @@
   class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4"
 >
   <div class="bg-white rounded-lg w-full max-w-xl p-6 shadow-xl">
-    <h3 class="text-xl font-semibold mb-4">Add Project</h3>
+    <h3 class="text-xl font-semibold mb-4">
+      {project ? "Edit Project" : "Add Project"}
+    </h3>
     <form on:submit|preventDefault={submit} class="space-y-4">
       <div>
         <label for="title" class="block text-sm font-medium text-gray-700 mb-1"
@@ -40,7 +37,7 @@
           id="title"
           type="text"
           placeholder="Project Title"
-          bind:value={newProj.title}
+          bind:value={formData.title}
           class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
           required
         />
@@ -54,7 +51,7 @@
           id="image"
           type="text"
           placeholder="https://..."
-          bind:value={newProj.image}
+          bind:value={formData.image}
           class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
         />
       </div>
@@ -67,7 +64,7 @@
           id="link"
           type="text"
           placeholder="Project Link"
-          bind:value={newProj.link}
+          bind:value={formData.link}
           class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
         />
       </div>
@@ -81,7 +78,7 @@
           id="summary"
           type="text"
           placeholder="Short summary"
-          bind:value={newProj.summary}
+          bind:value={formData.summary}
           class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
         />
       </div>
@@ -93,7 +90,7 @@
         <textarea
           id="desc"
           placeholder="Detailed description"
-          bind:value={newProj.description}
+          bind:value={formData.description}
           class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none h-32"
         ></textarea>
       </div>
@@ -110,7 +107,7 @@
           type="submit"
           class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors"
         >
-          Add Project
+          {project ? "Save Changes" : "Add Project"}
         </button>
       </div>
     </form>

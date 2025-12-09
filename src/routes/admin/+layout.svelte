@@ -1,12 +1,12 @@
 <script lang="ts">
     import { getAuthClient } from "$lib/firebase";
-    import { onAuthStateChanged, signOut } from "firebase/auth";
+    import { onAuthStateChanged, signOut, type User } from "firebase/auth";
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
     import { page } from "$app/stores";
 
     let { children } = $props();
-    let user = $state(null);
+    let user = $state<User | null>(null);
     let loading = $state(true);
 
     onMount(() => {
