@@ -1,5 +1,7 @@
 <script lang="ts">
-    export let publications: any[] = [];
+    import type { Publication } from "$lib/types";
+
+    export let publications: Publication[] = [];
 </script>
 
 <section id="publications" class="py-20 bg-gray-50">

@@ -1,6 +1,6 @@
 <script lang="ts">
     // Import image so Vite handles hashing/asset copying correctly
-    import profileImage from "../assets/binwon.png";
+    import profileImage from "$lib/assets/binwon.webp";
 </script>
 
 <div
