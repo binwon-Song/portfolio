@@ -1,6 +1,8 @@
 import { json } from '@sveltejs/kit';
 import { adminStorage } from '$lib/server/firebase';
 
+// @Example
+// curl -X POST -F "file=@/path/to/your/image.png" http://localhost:5173/api/upload
 export async function POST({ request }) {
     try {
         const data = await request.formData();
