@@ -1,6 +1,12 @@
 import { json } from '@sveltejs/kit';
 import { adminStorage } from '$lib/server/firebase';
 
+
+export const config = {
+    body: {
+        limit: '100mb'
+    }
+}
 // @Example
 // curl -X POST -F "file=@/path/to/your/image.png" http://localhost:5173/api/upload
 export async function POST({ request }) {
