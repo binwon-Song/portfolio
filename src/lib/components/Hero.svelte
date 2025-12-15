@@ -36,7 +36,7 @@
                     class="inline-block"
                 >
                     <i
-                        class="bi bi-github text-3xl md:text-3xl text-gray-700 hover:text-green-700 transition-colors"
+                        class="bi bi-github text-3xl md:text-5xl text-gray-700 hover:text-green-700 transition-colors"
                         aria-hidden="true"
                     ></i>
                 </a>

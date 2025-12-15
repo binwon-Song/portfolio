@@ -139,9 +139,9 @@
                                     class="grid grid-cols-1 md:grid-cols-2 gap-4"
                                 >
                                     <div>
-                                        <label
+                                        <span
                                             class="block text-xs font-semibold text-gray-500 uppercase mb-1"
-                                            >Title</label
+                                            >Title</span
                                         >
                                         <input
                                             type="text"
@@ -153,9 +153,9 @@
                                         />
                                     </div>
                                     <div>
-                                        <label
+                                        <span
                                             class="block text-xs font-semibold text-gray-500 uppercase mb-1"
-                                            >Link</label
+                                            >Link</span
                                         >
                                         <input
                                             type="text"
@@ -167,9 +167,9 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label
+                                    <span
                                         class="block text-xs font-semibold text-gray-500 uppercase mb-1"
-                                        >Image URL</label
+                                        >Image URL</span
                                     >
                                     <input
                                         type="text"
@@ -180,9 +180,9 @@
                                     />
                                 </div>
                                 <div>
-                                    <label
+                                    <span
                                         class="block text-xs font-semibold text-gray-500 uppercase mb-1"
-                                        >Summary</label
+                                        >Summary</span
                                     >
                                     <input
                                         type="text"
@@ -193,9 +193,9 @@
                                     />
                                 </div>
                                 <div>
-                                    <label
+                                    <span
                                         class="block text-xs font-semibold text-gray-500 uppercase mb-1"
-                                        >Description</label
+                                        >Description</span
                                     >
                                     <textarea
                                         name="description"
@@ -313,7 +313,7 @@
 
     {#if showAddProjModal}
         <ProjectModal
-            onAdd={handleAddProject}
+            onSave={handleAddProject}
             onClose={() => (showAddProjModal = false)}
         />
     {/if}
