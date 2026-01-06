@@ -46,7 +46,7 @@
         <header
             class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-gray-200"
         >
-            <nav class="container mx-auto px-6 py-4">
+            <nav class="container mx-auto px-6 py-4 max-w-7xl">
                 <div
                     class="flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
@@ -56,13 +56,14 @@
                             <div
                                 class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center"
                             >
-                                <i class="bi bi-grid-fill text-white text-sm"
-                                ></i>
+                                <a href="/" class="flex items-center justify-center w-full h-full">
+                                    <i class="bi bi-grid-fill text-white text-sm"></i>
+                                </a>
                             </div>
-                            <span
+                            <!-- <span
                                 class="text-xl font-bold text-gray-800 tracking-tight"
                                 >Admin Dashboard</span
-                            >
+                            > -->
                         </div>
 
                         <!-- Logout Button (Mobile only) -->

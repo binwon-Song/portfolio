@@ -9,8 +9,6 @@ export const load: PageServerLoad = async () => {
         getNavFiles()
     ]);
 
-    console.log(publications, projects, navFiles);
-
     return {
         publications,
         projects,

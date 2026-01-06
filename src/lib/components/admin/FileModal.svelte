@@ -58,8 +58,16 @@
         });
 
         if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || `Failed to upload ${file.name}`);
+          let error = `Failed to upload ${file.name}`;
+          try {
+            const data = await res.json();
+            error = data.error || error;
+          } catch (e) {
+            console.error('Failed to parse error response', e);
+            const text = await res.text();
+            console.error('Error response body:', text);
+          }
+          throw new Error(error);
         }
       }
 
