@@ -23,7 +23,6 @@
 		"vite": "^7.2.2"
 	},
 	"dependencies": {
-		"@rollup/rollup-darwin-arm64": "^4.53.3",
 		"bootstrap-icons": "^1.13.1",
 		"dropzone": "^6.0.0-beta.2",
 		"firebase": "^12.6.0",

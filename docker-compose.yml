@@ -1,0 +1,47 @@
+services:
+  nginx:
+    image: nginx
+    container_name: "portfolio"
+    volumes:
+      - ./data:/data/
+      - ./conf.d/:/etc/nginx/conf.d/
+      - ./nginx.conf/:/etc/nginx/nginx.conf
+      - ./letsencrypt:/etc/letsencrypt
+      - ./h5bp/:/etc/nginx/h5bp/
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+
+  portfolio-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: portfolio-app:latest
+    container_name: portfolio-container
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.production
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - NODE_ENV=production
+      #  certbot:
+      #    image: certbot/certbot
+      #    depends_on:
+      #      - nginx
+      #    volumes:
+      #      - ./letsencrypt/:/etc/letsencrypt
+      #      - ./data:/data/
+      #    command: >
+      #      certonly --webroot
+      #      --webroot-path=/data/
+      #      --email binwon236@gmail.com
+      #      --agree-tos
+      #      --no-eff-email
+      #      -d binwon.duckdns.org
+      #      --non-interactive
+      #    restart: "no"
+      #
