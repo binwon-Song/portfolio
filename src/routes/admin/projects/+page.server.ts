@@ -1,10 +1,15 @@
-import { getProjects, createProject, updateProject, deleteProject } from '$lib/server/database';
+import { getProjects, createProject, updateProject, deleteProject, getPosts, enrichProjects } from '$lib/server/database';
 import type { PageServerLoad, Actions } from './$types.js';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
     const projects = await getProjects();
-    return { projects };
+    const posts = await getPosts();
+
+    return {
+        projects: enrichProjects(projects, posts),
+        posts
+    };
 };
 
 export const actions: Actions = {
@@ -15,9 +20,10 @@ export const actions: Actions = {
         const summary = data.get('summary') as string;
         const description = data.get('description') as string;
         const link = data.get('link') as string;
+        const postId = data.get('postId') as string;
 
         try {
-            await createProject({ title, image, summary, description, link });
+            await createProject({ title, image, summary, description, link, postId });
             return { success: true };
         } catch (error) {
             console.error('Error creating project:', error);
@@ -33,9 +39,10 @@ export const actions: Actions = {
         const summary = data.get('summary') as string;
         const description = data.get('description') as string;
         const link = data.get('link') as string;
+        const postId = data.get('postId') as string;
 
         try {
-            await updateProject(id, { title, image, summary, description, link });
+            await updateProject(id, { title, image, summary, description, link, postId });
             return { success: true };
         } catch (error) {
             console.error('Error updating project:', error);

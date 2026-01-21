@@ -106,12 +106,9 @@
             </div>
 
             <!-- Centered Desktop Navigation -->
-            <div class="hidden md:flex items-center space-x-6 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <a
-                    href="#home"
-                    class="text-gray-600 hover:text-primary transition-colors"
-                    >Home</a
-                >
+            <div
+                class="hidden md:flex items-center space-x-6 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+            >
                 <a
                     href="#about"
                     class="text-gray-600 hover:text-primary transition-colors"
@@ -156,7 +153,9 @@
                             on:click|stopPropagation
                             on:keydown|stopPropagation
                         >
-                            <div class="grid grid-cols-1 gap-2 max-h-96 overflow-y-auto">
+                            <div
+                                class="grid grid-cols-1 gap-2 max-h-96 overflow-y-auto"
+                            >
                                 {#if navFiles.length > 0}
                                     {#each navFiles as f}
                                         <a
@@ -190,17 +189,17 @@
                                                     >
                                                         {#if f.size >= 1024 * 1024 * 1024}
                                                             {Math.round(
-                                                                f.size /
+                                                                (f.size /
                                                                     (1024 *
                                                                         1024 *
-                                                                        1024) *
+                                                                        1024)) *
                                                                     100,
                                                             ) / 100} GB
                                                         {:else if f.size >= 1024 * 1024}
                                                             {Math.round(
-                                                                f.size /
+                                                                (f.size /
                                                                     (1024 *
-                                                                        1024) *
+                                                                        1024)) *
                                                                     100,
                                                             ) / 100} MB
                                                         {:else}
@@ -214,7 +213,9 @@
                                         </a>
                                     {/each}
                                 {:else}
-                                    <div class="text-sm text-gray-500 px-2">No files available</div>
+                                    <div class="text-sm text-gray-500 px-2">
+                                        No files available
+                                    </div>
                                 {/if}
                             </div>
                         </div>
@@ -255,8 +256,12 @@
                         transition:fly={{ x: -300, duration: 300 }}
                     >
                         <!-- Header -->
-                        <div class="px-6 py-4 border-b flex items-center justify-between">
-                            <h2 class="text-lg font-semibold text-gray-900">Menu</h2>
+                        <div
+                            class="px-6 py-4 border-b flex items-center justify-between"
+                        >
+                            <h2 class="text-lg font-semibold text-gray-900">
+                                Menu
+                            </h2>
                             <button
                                 type="button"
                                 class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none"
@@ -283,11 +288,6 @@
                         <div class="flex-1 overflow-y-auto px-6 py-4">
                             <nav class="flex flex-col space-y-4">
                                 <a
-                                    href="#home"
-                                    class="text-gray-700 hover:text-primary text-lg font-medium"
-                                    on:click={toggleMenu}>Home</a
-                                >
-                                <a
                                     href="#about"
                                     class="text-gray-700 hover:text-primary text-lg font-medium"
                                     on:click={toggleMenu}>About</a
@@ -302,28 +302,38 @@
                                     class="text-gray-700 hover:text-primary text-lg font-medium"
                                     on:click={toggleMenu}>Publications</a
                                 >
-                                
+
                                 <hr class="border-gray-200 my-2" />
 
                                 <!-- Mobile Files Section -->
                                 <div>
-                                    <button 
+                                    <button
                                         class="flex items-center justify-between w-full text-gray-700 hover:text-primary text-lg font-medium group"
                                         on:click={toggleMobileFiles}
                                     >
                                         <span>Files</span>
-                                        <svg 
-                                            class="w-5 h-5 transform transition-transform duration-200 {isMobileFilesOpen ? 'rotate-180' : ''}" 
-                                            fill="none" 
-                                            viewBox="0 0 24 24" 
+                                        <svg
+                                            class="w-5 h-5 transform transition-transform duration-200 {isMobileFilesOpen
+                                                ? 'rotate-180'
+                                                : ''}"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
                                             stroke="currentColor"
                                         >
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M19 9l-7 7-7-7"
+                                            />
                                         </svg>
                                     </button>
-                                    
+
                                     {#if isMobileFilesOpen}
-                                        <div class="mt-2 ml-2 space-y-2 border-l-2 border-gray-100 pl-4" transition:slide|local>
+                                        <div
+                                            class="mt-2 ml-2 space-y-2 border-l-2 border-gray-100 pl-4"
+                                            transition:slide|local
+                                        >
                                             {#if navFiles.length > 0}
                                                 {#each navFiles as f}
                                                     <a
@@ -332,22 +342,46 @@
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                     >
-                                                        <div class="text-sm font-medium">{f.name}</div>
+                                                        <div
+                                                            class="text-sm font-medium"
+                                                        >
+                                                            {f.name}
+                                                        </div>
                                                         {#if f.size}
-                                                            <div class="text-xs text-gray-400">
+                                                            <div
+                                                                class="text-xs text-gray-400"
+                                                            >
                                                                 {#if f.size >= 1024 * 1024 * 1024}
-                                                                    {Math.round(f.size / (1024 * 1024 * 1024) * 100) / 100} GB
+                                                                    {Math.round(
+                                                                        (f.size /
+                                                                            (1024 *
+                                                                                1024 *
+                                                                                1024)) *
+                                                                            100,
+                                                                    ) / 100} GB
                                                                 {:else if f.size >= 1024 * 1024}
-                                                                    {Math.round(f.size / (1024 * 1024) * 100) / 100} MB
+                                                                    {Math.round(
+                                                                        (f.size /
+                                                                            (1024 *
+                                                                                1024)) *
+                                                                            100,
+                                                                    ) / 100} MB
                                                                 {:else}
-                                                                    {Math.round(f.size / 1024)} KB
+                                                                    {Math.round(
+                                                                        f.size /
+                                                                            1024,
+                                                                    )} KB
                                                                 {/if}
                                                             </div>
                                                         {/if}
                                                     </a>
                                                 {/each}
                                             {:else}
-                                                <div class="text-sm text-gray-400 py-1">No files available</div>
+                                                <div
+                                                    class="text-sm text-gray-400 py-1"
+                                                >
+                                                    No files available
+                                                </div>
                                             {/if}
                                         </div>
                                     {/if}

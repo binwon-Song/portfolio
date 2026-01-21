@@ -1,5 +1,5 @@
 import { adminDb, adminStorage } from '$lib/server/firebase';
-import type { NavFile, Project, Publication } from '$lib/types';
+import type { NavFile, Post, Project, Publication } from '$lib/types';
 
 // Helper to convert Firestore doc to typed object
 // Firestore Timestamp는 SvelteKit에서 직렬화할 수 없으므로 Date 객체로 변환합니다.
@@ -62,6 +62,16 @@ export const deleteNavFile = async (id: string, storagePath?: string) => {
 };
 
 // --- Projects ---
+export const enrichProjects = (projects: Project[], posts: Post[]): Project[] => {
+    return projects.map(project => {
+        const linkedPost = posts.find(p => p.projectId === project.id);
+        return {
+            ...project,
+            postId: linkedPost ? linkedPost.id : project.postId
+        };
+    });
+};
+
 export const getProjects = async (): Promise<Project[]> => {
     const snapshot = await adminDb.collection('projects').orderBy('createdAt', 'desc').get();
     return snapshot.docs.map(doc => docToData<Project>(doc));
@@ -101,4 +111,36 @@ export const updatePublication = async (id: string, publication: Partial<Publica
 
 export const deletePublication = async (id: string) => {
     await adminDb.collection('publications').doc(id).delete();
+};
+
+// --- Posts ---
+export const getPosts = async (): Promise<Post[]> => {
+    const snapshot = await adminDb.collection('posts').orderBy('createdAt', 'desc').get();
+    return snapshot.docs.map(doc => docToData<Post>(doc));
+};
+
+export const getPostById = async (id: string): Promise<Post | null> => {
+    const doc = await adminDb.collection('posts').doc(id).get();
+    if (!doc.exists) return null;
+    return docToData<Post>(doc as FirebaseFirestore.QueryDocumentSnapshot);
+};
+
+export const createPost = async (post: Omit<Post, 'id'>) => {
+    const now = new Date();
+    await adminDb.collection('posts').add({
+        ...post,
+        createdAt: now,
+        updatedAt: now
+    });
+};
+
+export const updatePost = async (id: string, post: Partial<Post>) => {
+    await adminDb.collection('posts').doc(id).update({
+        ...post,
+        updatedAt: new Date()
+    });
+};
+
+export const deletePost = async (id: string) => {
+    await adminDb.collection('posts').doc(id).delete();
 };

@@ -15,6 +15,7 @@
         summary: "",
         description: "",
         link: "",
+        postId: "",
     };
 
     // Editing state for projects
@@ -25,6 +26,7 @@
         summary: "",
         description: "",
         link: "",
+        postId: "",
     };
 
     $: projects = data.projects as Project[];
@@ -43,6 +45,7 @@
             summary: proj.summary || "",
             description: proj.description || "",
             link: proj.link || "",
+            postId: proj.postId || "",
         };
     }
 
@@ -54,6 +57,7 @@
             summary: "",
             description: "",
             link: "",
+            postId: "",
         };
     }
 </script>
@@ -89,6 +93,7 @@
                         summary: "",
                         description: "",
                         link: "",
+                        postId: "",
                     };
                     await invalidateAll();
                 } else {
@@ -104,6 +109,7 @@
         <input type="text" name="summary" value={newProj.summary} />
         <input type="text" name="description" value={newProj.description} />
         <input type="text" name="link" value={newProj.link} />
+        <input type="text" name="postId" value={newProj.postId} />
     </form>
 
     <div class="space-y-4 max-w-5xl">
@@ -164,6 +170,24 @@
                                             class="w-full border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm"
                                             placeholder="Project Link"
                                         />
+                                    </div>
+                                    <div>
+                                        <span
+                                            class="block text-xs font-semibold text-gray-500 uppercase mb-1"
+                                            >Linked Post</span
+                                        >
+                                        <select
+                                            name="postId"
+                                            bind:value={editProj.postId}
+                                            class="w-full border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm"
+                                        >
+                                            <option value="">No link</option>
+                                            {#each data.posts as p}
+                                                <option value={p.id}
+                                                    >{p.title}</option
+                                                >
+                                            {/each}
+                                        </select>
                                     </div>
                                 </div>
                                 <div>
@@ -315,6 +339,7 @@
         <ProjectModal
             onSave={handleAddProject}
             onClose={() => (showAddProjModal = false)}
+            posts={data.posts}
         />
     {/if}
 </div>

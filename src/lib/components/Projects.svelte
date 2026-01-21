@@ -1,17 +1,20 @@
 <script lang="ts">
     import type { Project } from "$lib/types";
+    import ProjectDetailModal from "./ProjectDetailModal.svelte";
 
     export let projects: Project[] = [];
 
-    let expandedProjects: Set<number> = new Set();
+    let selectedProject: Project | null = null;
+    let isModalOpen = false;
 
-    function toggleProject(index: number) {
-        if (expandedProjects.has(index)) {
-            expandedProjects.delete(index);
-        } else {
-            expandedProjects.add(index);
-        }
-        expandedProjects = expandedProjects; // Trigger reactivity
+    function openProject(proj: Project) {
+        selectedProject = proj;
+        isModalOpen = true;
+    }
+
+    function closeProject() {
+        selectedProject = null;
+        isModalOpen = false;
     }
 </script>
 
@@ -39,34 +42,34 @@
                             {proj.title}
                         </h3>
                         <div>
-                            {#if !expandedProjects.has(index)}
-                                <p class="text-gray-600 mb-1">
-                                    {proj.summary}
-                                </p>
-                            {:else}
-                                <div class="text-gray-600 mb-1">
-                                    {proj.description}
-                                </div>
-                            {/if}
+                            <p class="text-gray-600 mb-4 line-clamp-2">
+                                {proj.summary}
+                            </p>
 
-                            <button
-                                type="button"
-                                on:click={() => toggleProject(index)}
-                                class="text-sm text-gray-600 hover:underline mb-4"
-                            >
-                                {expandedProjects.has(index)
-                                    ? "간단히 보기"
-                                    : "자세히 보기"}
-                            </button>
+                            {#if proj.postId}
+                                <a
+                                    href="/posts/{proj.postId}"
+                                    class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+                                >
+                                    Details <i class="bi bi-journal-text"></i>
+                                </a>
+                            {:else}
+                                <button
+                                    type="button"
+                                    on:click={() => openProject(proj)}
+                                    class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+                                >
+                                    Details <i class="bi bi-plus-circle"></i>
+                                </button>
+                            {/if}
                         </div>
-                        <a
-                            href={proj.link}
-                            class="text-primary hover:underline text-right block"
-                            >View Project</a
-                        >
                     </div>
                 </div>
             {/each}
         </div>
     </div>
 </section>
+
+{#if isModalOpen && selectedProject}
+    <ProjectDetailModal project={selectedProject} onClose={closeProject} />
+{/if}

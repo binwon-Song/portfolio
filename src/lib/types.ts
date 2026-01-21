@@ -17,6 +17,7 @@ export interface Project {
     summary: string;
     description: string;
     link: string;
+    postId?: string;
     createdAt?: Date | any;
 }
 
@@ -26,4 +27,15 @@ export interface Publication {
     conference: string;
     description: string;
     createdAt?: Date | any;
+}
+
+export interface Post {
+    id?: string;
+    title: string;
+    slug?: string;
+    content_md: string;
+    projectId?: string;
+    links?: { label: string; url: string }[];
+    createdAt?: Date;
+    updatedAt?: Date;
 }
