@@ -13,18 +13,25 @@
     let createPubForm: HTMLFormElement;
     let updatePubForm: HTMLFormElement;
 
-    let formData = {
+    let formData: {
+        id: string;
+        title: string;
+        conference: string;
+        description: string;
+        tags: string[];
+    } = {
         id: "",
         title: "",
         conference: "",
         description: "",
+        tags: [],
     };
 
     $: publications = data.publications as Publication[];
 
     function openAddModal() {
         selectedPub = null;
-        formData = { id: "", title: "", conference: "", description: "" };
+        formData = { id: "", title: "", conference: "", description: "", tags: [] };
         showModal = true;
     }
 
@@ -39,6 +46,7 @@
             title: data.title || "",
             conference: data.conference || "",
             description: data.description || "",
+            tags: data.tags || [],
         };
 
         showModal = false;
@@ -73,6 +81,8 @@
         </button>
     </div>
 
+
+
     <!-- Hidden Form for Create -->
     <form
         action="?/createPublication"
@@ -96,6 +106,7 @@
             name="description"
             bind:value={formData.description}
         />
+        <input type="hidden" name="tags" value={JSON.stringify(formData.tags)} />
     </form>
 
     <!-- Hidden Form for Update -->
@@ -122,6 +133,7 @@
             name="description"
             bind:value={formData.description}
         />
+        <input type="hidden" name="tags" value={JSON.stringify(formData.tags)} />
     </form>
 
     <div class="space-y-4 max-w-10xl">

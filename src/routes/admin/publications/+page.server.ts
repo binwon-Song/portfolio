@@ -13,9 +13,11 @@ export const actions: Actions = {
         const title = data.get('title') as string;
         const conference = data.get('conference') as string;
         const description = data.get('description') as string;
+        const tagsStr = data.get("tags") as string;
+        const tags = tagsStr ? JSON.parse(tagsStr) : [];
 
         try {
-            await createPublication({ title, conference, description });
+            await createPublication({ title, conference, description, tags });
             return { success: true };
         } catch (error) {
             console.error('Error creating publication:', error);
@@ -29,9 +31,11 @@ export const actions: Actions = {
         const title = data.get('title') as string;
         const conference = data.get('conference') as string;
         const description = data.get('description') as string;
+        const tagsStr = data.get("tags") as string;
+        const tags = tagsStr ? JSON.parse(tagsStr) : [];
 
         try {
-            await updatePublication(id, { title, conference, description });
+            await updatePublication(id, { title, conference, description, tags });
             return { success: true };
         } catch (error) {
             console.error('Error updating publication:', error);

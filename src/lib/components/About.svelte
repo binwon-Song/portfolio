@@ -26,7 +26,7 @@
                     class="font-medium text-xl"
                     >Chungbuk National University</span
                 >
-                <div class="text-gray-500 text-lg">
+                <div class="text-gray-500 text-md">
                     M.S - CSLAB advised by Heeseung Jo (2025 - Present)
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     class="font-medium text-xl"
                     >Chungbuk National University</span
                 >
-                <div class="text-gray-500 text-lg">
+                <div class="text-gray-500 text-md">
                     B.S - Computer Science (2019 - 2025)
                 </div>
             </div>

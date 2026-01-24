@@ -26,6 +26,7 @@ export interface Publication {
     title: string;
     conference: string;
     description: string;
+    tags?: string[];
     createdAt?: Date | any;
 }
 

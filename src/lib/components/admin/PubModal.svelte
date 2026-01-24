@@ -11,7 +11,29 @@
     title: publication?.title || "",
     conference: publication?.conference || "",
     description: publication?.description || "",
+    tags: publication?.tags || [],
   };
+
+  let tagInput = "";
+
+  function addTag() {
+    const t = tagInput.trim();
+    if (t && !formData.tags.includes(t)) {
+      formData.tags = [...formData.tags, t];
+      tagInput = "";
+    }
+  }
+
+  function removeTag(tag: string) {
+    formData.tags = formData.tags.filter((x) => x !== tag);
+  }
+
+  function handleTagKeydown(e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addTag();
+    }
+  }
 
   function submit() {
     onSave({ ...formData });
@@ -69,6 +91,45 @@
           class="w-full border p-2 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none h-32"
           required
         ></textarea>
+      </div>
+
+      <div>
+        <label for="tags" class="block text-sm font-medium text-gray-700 mb-1"
+          >Tags</label
+        >
+        <div class="flex gap-2 mb-2">
+          <input
+            id="tags"
+            type="text"
+            placeholder="Add a tag..."
+            bind:value={tagInput}
+            on:keydown={handleTagKeydown}
+            class="flex-1 border p-2 rounded focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+          />
+          <button
+            type="button"
+            on:click={addTag}
+            class="bg-gray-200 text-gray-700 px-3 rounded hover:bg-gray-300"
+          >
+            Add
+          </button>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {#each formData.tags as tag}
+            <span
+              class="bg-indigo-100 text-indigo-800 text-sm px-2 py-1 rounded-full flex items-center gap-1"
+            >
+              {tag}
+              <button
+                type="button"
+                class="text-indigo-600 hover:text-indigo-900 font-bold"
+                on:click={() => removeTag(tag)}
+              >
+                &times;
+              </button>
+            </span>
+          {/each}
+        </div>
       </div>
 
       <div class="flex justify-end gap-2 pt-2">
