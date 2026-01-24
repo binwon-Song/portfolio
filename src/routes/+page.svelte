@@ -11,7 +11,7 @@
 </script>
 
 <Navbar navFiles={data.navFiles}></Navbar>
-<div class="min-h-screen bg-gradient-to-br font-sans">
+<div class="min-h-screen bg-gradient-to-br">
     <main>
         <!-- Hero + About/Education Side Panel -->
         <section id="home" class="py-20 bg-white">

@@ -35,7 +35,7 @@
         ></div>
     </div>
 {:else if user}
-    <div class="min-h-screen bg-gray-50 font-sans flex flex-col">
+    <div class="min-h-screen bg-gray-50 flex flex-col">
         <AdminNav logoutHandler={logout} />
 
         <!-- Main Content -->

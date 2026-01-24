@@ -115,14 +115,14 @@
                     >About</a
                 >
                 <a
-                    href="#projects"
-                    class="text-gray-600 hover:text-primary transition-colors"
-                    >Projects</a
-                >
-                <a
                     href="#publications"
                     class="text-gray-600 hover:text-primary transition-colors"
                     >Publications</a
+                >
+                <a
+                    href="#projects"
+                    class="text-gray-600 hover:text-primary transition-colors"
+                    >Projects</a
                 >
                 <!-- Files dropdown (Desktop only) -->
                 <div class="relative">
@@ -284,7 +284,7 @@
                             </button>
                         </div>
 
-                        <!-- Content -->
+                        <!-- MOBILE NAV -->
                         <div class="flex-1 overflow-y-auto px-6 py-4">
                             <nav class="flex flex-col space-y-4">
                                 <a
@@ -293,14 +293,14 @@
                                     on:click={toggleMenu}>About</a
                                 >
                                 <a
+                                href="#publications"
+                                class="text-gray-700 hover:text-primary text-lg font-medium"
+                                on:click={toggleMenu}>Publications</a
+                                >
+                                <a
                                     href="#projects"
                                     class="text-gray-700 hover:text-primary text-lg font-medium"
                                     on:click={toggleMenu}>Projects</a
-                                >
-                                <a
-                                    href="#publications"
-                                    class="text-gray-700 hover:text-primary text-lg font-medium"
-                                    on:click={toggleMenu}>Publications</a
                                 >
 
                                 <hr class="border-gray-200 my-2" />
@@ -328,7 +328,9 @@
                                             />
                                         </svg>
                                     </button>
+                                    
 
+                                    
                                     {#if isMobileFilesOpen}
                                         <div
                                             class="mt-2 ml-2 space-y-2 border-l-2 border-gray-100 pl-4"
